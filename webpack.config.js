@@ -11,13 +11,22 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'jsx-loader',
+        test: /\.js$/,
         exclude: /node_modules/,
-        include: path.join(__dirname, 'app'),
+        use: {
+          loader: 'babel-loader'
+        }
       },
-    ],
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
+      }
+    ]
   },
 };
