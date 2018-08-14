@@ -5,7 +5,7 @@ const { withFormik } = require('formik');
 
 
 
-const postData = (url = '', data = {}) => axios.post('/shorten', data)
+const postData = (url = '', data = {}) => axios.post('shorten', data)
   .then(function (response) {
     console.log(response);
     response => response.json()
@@ -32,12 +32,19 @@ const InnerForm = ({
     name="url"
     type="text"
     className={`form-control ${errors.uri && touched.uri && 'is-invalid'}`}
-    value={values.uri}
+    value={values.url}
     onChange={handleChange}
     onBlur={handleBlur}
   />
           
-            {values.hash}
+
+        {status ? (
+          <a href={`http://localhost:8001/${status.hash}`}>
+            {`http://localhost:8001/${status.hash}`}
+          </a>
+        ) : (
+          ''
+        )}
           
     <button type="submit" disabled={isSubmitting}>
       Submit
