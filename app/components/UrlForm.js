@@ -5,17 +5,17 @@ const { withFormik } = require('formik');
 
 
 
-const postData = function(url = '', data = {}) { axios.post('/user', data)
+const postData = (url = '', data = {}) => axios.post('/shorten', data)
   .then(function (response) {
     console.log(response);
+    response => response.json()
   })
   .catch(function (error) {
     console.log(error);
-  })
-                                               };
+  });
 
 // Our inner form component which receives our form's state and updater methods as props
-const InnerForm = function({
+const InnerForm = ({
   values,
   errors,
   touched,
@@ -23,57 +23,59 @@ const InnerForm = function({
   handleBlur,
   handleSubmit,
   isSubmitting,
-}) { (
+  status
+}) => (
   <form onSubmit={handleSubmit}>
-    <input
-      type="email"
-      name="email"
-      onChange={handleChange}
-      onBlur={handleBlur}
-      value={values.email}
-    />
-    {touched.email && errors.email && <div>{errors.email}</div>}
-    <input
-      type="password"
-      name="password"
-      onChange={handleChange}
-      onBlur={handleBlur}
-      value={values.password}
-    />
-    {touched.password && errors.password && <div>{errors.password}</div>}
+  
+  
+  <input
+    name="url"
+    type="text"
+    className={`form-control ${errors.uri && touched.uri && 'is-invalid'}`}
+    value={values.uri}
+    onChange={handleChange}
+    onBlur={handleBlur}
+  />
+          
+            {values.hash}
+          
     <button type="submit" disabled={isSubmitting}>
       Submit
     </button>
   </form>
-)};
+);
 
 // Wrap our form with the using withFormik HoC
 const MyForm = withFormik({
   // Transform outer props into form values
   mapPropsToValues: props => ({ email: '', password: '' }),
   // Add a custom validation function (this can be async too!)
-  validate: (values, props) => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = 'Required';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = 'Invalid email address';
-    }
-    return errors;
-  },
+  // validate: (values, props) => {
+  //   const errors = {};
+  //   if (!values.email) {
+  //     errors.email = 'Required';
+  //   } else if (
+  //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+  //   ) {
+  //     errors.email = 'Invalid email address';
+  //   }
+  //   return errors;
+  // },
   // Submission handler
   handleSubmit: (
     values,
     {
       props,
+      resetForm,
+      setStatus,
+      setErrors,
       setSubmitting,
-      setErrors /* setValues, setStatus, and other goodies */,
     }
   ) => {
     postData('/shorten', values).then(
-      user => {
+      data => {
+
+        setStatus(data);
         setSubmitting(false);
         // do whatevs...
         // props.updateUser(user)
