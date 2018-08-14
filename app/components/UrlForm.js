@@ -1,41 +1,7 @@
-// import axios from 'axios';
-// import React from 'react';
-// import styled from 'styled-components';
-// import * as Yup from 'yup';
-// import { withFormik } from 'formik';
-// import DisplayFormikState from './DisplayFormikState';
-
 const axios = require('axios');
 const React = require('react');
 const styled = require('styled-components');
-const Yup = require('yup');
 const { withFormik } = require('formik');
-const DisplayFormikState = require('./DisplayFormikState');
-
-// const postData = (url = '', data = {}) => fetch(url, {
-//   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-//   mode: 'cors', // no-cors, cors, *same-origin
-//   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-//   credentials: 'same-origin', // include, same-origin, *omit
-//   headers: {
-//     'Content-Type': 'application/json; charset=utf-8'
-//     // "Content-Type": "application/x-www-form-urlencoded",
-//   },
-//   redirect: 'follow', // manual, *follow, error
-//   referrer: 'no-referrer', // no-referrer, *client
-//   body: JSON.stringify(data) // body data type must match "Content-Type" header
-// })
-//   .then(responseText => responseText.json()) // parses response to JSON
-// // .then(response => this.setState(response))
-//   .catch(error => ({ errors: { msg: error.message } }));
-
-const postData = (url = '', data = {}) => axios.post('/user', data)
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 
 const SubmitButton = styled.button`
   display: inline-block;
@@ -66,120 +32,102 @@ const SubmitButton = styled.button`
 
 const ErrorLabel = styled.span`
   display: inline-block;
+background-color: goldenrod;
 `;
 
-const UriForm = (props) => {
-  const {
-    values,
-    touched,
-    errors,
-    dirty,
-    isSubmitting,
-    handleChange,
-    setFieldValue,
-    hanldeBlur,
-    handleSubmit,
-    handleReset,
-    hash,
-    status
-  } = props;
-
-  return (
-    <div>
-      <form className="" onSubmit={handleSubmit}>
-        <h1>
-URI Shortener
-        </h1>
+// Our inner form component which receives our form's state and updater methods as props
+const InnerForm = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting,
+}) => (
+  <form onSubmit={handleSubmit}>
+  
         <div>
-          <label htmlFor="uri">
+          <label htmlFor="url">
 Link Address
           </label>
           <input
-            name="uri"
+            name="url"
             type="text"
             className={`form-control ${errors.uri && touched.uri && 'is-invalid'}`}
-            value={values.uri}
+            value={values.url}
             onChange={handleChange}
-            // onBlur={_handleBlur}
+            onBlur={handleBlur}
           />
+        </div>
+    {touched.url && errors.url && <div>{errors.url}</div>}
+
           <div>
             {values.hash}
           </div>
-          {errors.uri && touched.uri && (
-          <div className="invalid-feedback">
-            {errors.uri}
-          </div>
-          )}
-        </div>
-        <SubmitButton type="submit">
-          {isSubmitting ? 'WAIT PLZ' : 'SUBMIT'}
-        </SubmitButton>
-        {/* <DisplayFormikState {...props} /> */}
-      </form>
-      <h1>
-Returned Data
-      </h1>
-      <h4>
-        {status ? (
-          <a href={`http://localhost:8001/${status.hash}`}>
-            {`http://localhost:8001/${status.hash}`}
-          </a>
-        ) : (
-          ''
-        )}
-      </h4>
-    </div>
-  );
-};
+    <button type="submit" disabled={isSubmitting}>
+      Submit
+    </button>
+<SubmitButton/>
+  </form>
+);
 
-module.exports = withFormik({
-  mapPropsToValues: props => ({
-    uri: props.uri.uri
-  }),
 
-  validationSchema: Yup.object().shape({
-    uri: Yup.string()
-      .url('Invalid URI format')
-      .required('A valid link is required')
+const postData = (url = '', data = {}) => axios.post('/user', data)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
-    //       .test(
-    //         'is-google',
-    //       <ErrorLabel>
-    // Uhhh this isn't google
-    //       </ErrorLabel>,
-    //       value => value === 'http://www.google.com'
-    //       )
-  }),
+// Wrap our form with the using withFormik HoC
+const MyForm = withFormik({
+  // Transform outer props into form values
+  mapPropsToValues: props => ({ email: '', password: '' }),
+  // Add a custom validation function (this can be async too!)
+  validate: (values, props) => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = 'Invalid email address';
+    }
+    return errors;
+  },
+  // Submission handler
+  handleSubmit: (
+    values,
+    {
+      props,
+      setSubmitting,
+      setErrors /* setValues, setStatus, and other goodies */,
+    }
+  ) => {
+    postData(values).then(
+      user => {
+        setSubmitting(false);
+        // do whatevs...
+        // props.updateUser(user)
+      },
+      errors => {
+        setSubmitting(false);
+        // Maybe even transform your API's errors into the same shape as Formik's!
+        setErrors(errors);
+      }
+    );
+  },
+})(InnerForm);
 
-  handleSubmit: (values, {
-    resetForm, setStatus, setErrors, setSubmitting
-  }) => {
-    console.log('shortening');
-    console.log(JSON.stringify(values));
-    postData('/shorten', values)
-      // postData('/shorten', values)
-      .then((data) => {
-        // postData('/api/getShortLink', { hash: e.target.value })
-        // if (data.errors) {
-        //   return () => {
-        //     this.setState({ errors: { msg: data.errors } }, () => console.error(`state in 'then-if' ${this.state}`));
-        //   };
-        // }
-        // console.log(`data ${JSON.stringify(data, null, 2)}`);
-        // return data;
+// Use <MyForm /> anywhere
+const Basic = () => (
+  <div>
+    <h1>My Form</h1>
+    <p>This can be anywhere in your application</p>
+    <MyForm />
+  </div>
+);
 
-        setStatus(data);
-        console.log(`state in 'then' ${JSON.stringify(data)}`);
-        console.log(data);
-        // if (data == { errors: { msg: error } })
-      }) // JSON from `response.json()` call
-      .catch(error => console.error(error));
-    setSubmitting(false);
-
-    // setTimeout(() => {
-    //   // alert(JSON.stringify(values, null, 2));
-    //   JSON.stringify(values, null, 2);
-    //   setSubmitting(false);
-    // }, 1000);
-  }
-})(UriForm);
+module.exports = Basic;
