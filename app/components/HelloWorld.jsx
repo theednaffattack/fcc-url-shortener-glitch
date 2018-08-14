@@ -1,5 +1,6 @@
 const React = require('react');
 const UnorderedList = require('./UnorderedList');
+const UrlForm = require('./UrlForm');
 
 const dependenciesArray = [
   'express - middleware for the node server',
@@ -30,6 +31,8 @@ const HelloWorld = function() {
       <p>Look in <code>app/components/</code> for two example components:</p>
 
       <UnorderedList items={componentsMade} />
+      
+          <UriForm  />
     </div>
   );
 }
