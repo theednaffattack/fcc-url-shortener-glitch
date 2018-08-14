@@ -1,16 +1,16 @@
-import axios from 'axios';
-import React from 'react';
-import styled from 'styled-components';
-import * as Yup from 'yup';
-import { withFormik } from 'formik';
-import DisplayFormikState from './DisplayFormikState';
+// import axios from 'axios';
+// import React from 'react';
+// import styled from 'styled-components';
+// import * as Yup from 'yup';
+// import { withFormik } from 'formik';
+// import DisplayFormikState from './DisplayFormikState';
 
 const axios = require('axios');
 const React = require('react');
 const styled = require('styled-components');
 const Yup = require('yup');
 const { withFormik } = require('formik');
-const DisplayFormikState from './DisplayFormikState';
+const DisplayFormikState = require('./DisplayFormikState');
 
 // const postData = (url = '', data = {}) => fetch(url, {
 //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
