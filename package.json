@@ -22,9 +22,10 @@
     "yup": "^0.26.2",
     "styled-components": "^3.4.2",
     "babel": "^6.23.0",
-    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-plugin-styled-components": "^1.5.1"
+    "babel-plugin-styled-components": "^1.5.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1"
   },
   "engines": {
     "node": "8.x"
