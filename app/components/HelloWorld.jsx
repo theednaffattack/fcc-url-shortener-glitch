@@ -32,7 +32,7 @@ const HelloWorld = function() {
 
       <UnorderedList items={componentsMade} />
       
-          <UriForm  />
+          <UriForm />
     </div>
   );
 }
