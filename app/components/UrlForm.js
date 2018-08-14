@@ -15,7 +15,7 @@ const postData = function(url = '', data = {}) { axios.post('/user', data)
                                                };
 
 // Our inner form component which receives our form's state and updater methods as props
-const InnerForm = ({
+const InnerForm = function({
   values,
   errors,
   touched,
@@ -23,7 +23,7 @@ const InnerForm = ({
   handleBlur,
   handleSubmit,
   isSubmitting,
-}) => (
+}) { (
   <form onSubmit={handleSubmit}>
     <input
       type="email"
@@ -45,7 +45,7 @@ const InnerForm = ({
       Submit
     </button>
   </form>
-);
+)};
 
 // Wrap our form with the using withFormik HoC
 const MyForm = withFormik({
