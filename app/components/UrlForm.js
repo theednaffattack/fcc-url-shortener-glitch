@@ -5,13 +5,14 @@ const { withFormik } = require('formik');
 
 
 
-const postData = (url = '', data = {}) => axios.post('/user', data)
+const postData = function(url = '', data = {}) { axios.post('/user', data)
   .then(function (response) {
     console.log(response);
   })
   .catch(function (error) {
     console.log(error);
-  });
+  })
+                                               };
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
@@ -24,20 +25,6 @@ const InnerForm = ({
   isSubmitting,
 }) => (
   <form onSubmit={handleSubmit}>
-  
-        <div>
-          <label htmlFor="url">
-Link Address
-          </label>
-          <input
-            name="url"
-            type="text"
-            className={`form-control ${errors.uri && touched.uri && 'is-invalid'}`}
-            value={values.url}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          </div>
     <input
       type="email"
       name="email"
@@ -108,3 +95,5 @@ const Basic = () => (
     <MyForm />
   </div>
 );
+
+module.exports = Basic;
