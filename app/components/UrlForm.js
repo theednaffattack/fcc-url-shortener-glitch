@@ -1,6 +1,6 @@
 const axios = require('axios');
 const React = require('react');
-// const styled = require('styled-components');
+const styled = require('styled-components');
 const { withFormik } = require('formik');
 
 
@@ -8,6 +8,39 @@ const { withFormik } = require('formik');
 const postData = (url = '', data = {}) => axios.post('shorten', data)
   .then(responseText => responseText)
   .catch(error => error);
+
+
+// const SubmitButton = styled.button`
+//   display: inline-block;
+//   font-weight: 400;
+//   text-align: center;
+//   white-space: nowrap;
+//   vertical-align: middle;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+//   border: 1px solid transparent;
+//   padding: 0.5rem 0.75rem;
+//   font-size: 1rem;
+//   line-height: 1.25;
+//   border-radius: 0.25rem;
+//   transition: all 0.15s ease-in-out;
+//   color: #007bff;
+//   background-color: transparent;
+//   background-image: none;
+//   border-color: #007bff;
+//   &:hover {
+//     color: #fff;
+//     background-color: #007bff;
+//     border-color: #007bff;
+//   }
+// `;
+
+// const ErrorLabel = styled.span`
+//   display: inline-block;
+// `;
+
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
