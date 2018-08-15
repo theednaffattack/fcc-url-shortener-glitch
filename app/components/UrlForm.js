@@ -24,7 +24,7 @@ const InnerForm = ({
   handleSubmit,
   isSubmitting,
   status
-}) => (
+}, props) => (
   <form onSubmit={handleSubmit}>
   
   
@@ -36,11 +36,11 @@ const InnerForm = ({
     onChange={handleChange}
     onBlur={handleBlur}
   />
-          
+{JSON.stringify(values)}
 
         {status ? (
-          <a href={`http://localhost:8001/${status.hash}`}>
-            {`http://localhost:8001/${status.hash}`}
+          <a href={`${status.hash}`}>
+            {`${status.hash}`}
           </a>
         ) : (
           ''
@@ -73,9 +73,9 @@ const MyForm = withFormik({
     values,
     {
       props,
+      setErrors,
       resetForm,
       setStatus,
-      setErrors,
       setSubmitting,
     }
   ) => {

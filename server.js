@@ -44,7 +44,7 @@ app.post('/api/getShortLink', (req, res, next) => {
 app.get('/:hash', (req, res) => {
   const baseId = req.params.hash;
   const id = atob(baseId);
-  URL.findOne({ _id: id }, (err, doc) => {
+  Url.findOne({ _id: id }, (err, doc) => {
     if (doc) {
       res.redirect(doc.url);
     } else {
@@ -57,8 +57,8 @@ app.get('/:hash', (req, res) => {
 app.post('/shorten', (req, res, next) => {
   console.log('Inside post req.body.url');
   console.log(req.body);
-  const urlData = req.body.uri;
-  URL.findOne({ url: urlData }, (err, doc) => {
+  const urlData = req.body.url;
+  Url.findOne({ url: urlData }, (err, doc) => {
     if (doc) {
       console.log('entry found in db');
       console.log({
@@ -76,7 +76,7 @@ app.post('/shorten', (req, res, next) => {
     } else {
       console.log('entry NOT found in db, saving new');
       const stringUrl = urlData.toString();
-      const url = new URL({
+      const url = new Url({
         url: stringUrl
       });
       url.save(() => {
@@ -114,4 +114,53 @@ app.post('/shorten', (req, res, next) => {
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
+});
+
+
+
+
+const db = mongoose.connect(
+  connectionString,
+  {
+    useNewUrlParser: true,
+    dbName: 'test'
+  }
+);
+
+db.then(
+  (database) => {
+    console.log("we're connected!");
+
+    console.log(connectionString);
+    // console.log(database.connection.db);
+    // const urlCollection = database.connection.db.collection('Url');
+    // const counterCollection = database.connection.db.collection('Counter');
+    // console.log(database.connection.db.collection('URL'));
+    // counterCollection.remove({}, (err) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log('Counter collection removed');
+    // });
+
+    // Counter.remove({}, () => {
+    //   console.log('Pre-save Counter collection removal');
+    //   const counter = new Counter({ _id: 'url_count', count: 0 });
+    //   counter.save((err) => {
+    //     if (err) return console.error(err);
+    //     console.log('counter inserted');
+    //   });
+    // });
+    // URL.remove({}, (err) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log('Url collection removed');
+    // });
+  },
+  (err) => {
+    console.error(`stuff ${err}`);
+  }
+).catch((err) => {
+  console.error(err);
 });
