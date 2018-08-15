@@ -38,16 +38,15 @@ const InnerForm = ({
 
 
         
-    {touched.url && errors.url && <div>{errors.}</div>}
+    {touched.url && errors.url && <div>{errors.url}</div>}
       <h1>
 Returned Data
       </h1>
 
-{JSON.stringify(errors)}
       <h4>
         {status ? (
-          <a href={`http://localhost:8001/${status.data.hash}`}>
-            {`http://localhost:8001/${status.data.hash}`}
+          <a href={`${status.data.hash}`}>
+            {`${status.data.hash}`}
           </a>
         ) : (
           ''
