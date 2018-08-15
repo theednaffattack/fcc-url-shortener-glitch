@@ -63,7 +63,7 @@ const InnerForm = ({
   <input
     name="url"
     type="text"
-    className={`form-control ${errors.uri && touched.uri && 'is-invalid'}`}
+    className={`form-control ${ errors.uri && touched.uri && 'is-invalid'}`}
     value={values.url}
     onChange={handleChange}
     onBlur={handleBlur}
@@ -79,7 +79,7 @@ Returned Data
       <h4>
         {status ? (
           <a href={`${status.data.hash}`}>
-            {`${status.data.hash}`}
+            {`${window.location.href}/${status.data.hash}`}
           </a>
         ) : (
           ''
