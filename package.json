@@ -2,7 +2,7 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "fcc-url-shortener",
+  "name": "starter-react",
   "version": "0.0.1",
   "description": "A small scaffold to get you started using React with Webpack",
   "main": "server.js",
@@ -21,23 +21,19 @@
     "formik": "^1.0.2",
     "yup": "^0.26.2",
     "styled-components": "^3.4.2",
-    "babel-loader": "^8.0.0-beta.3",
-    "babel-plugin-styled-components": "^1.5.1",
-    "@babel/preset-env": "^7.0.0-rc.1",
-    "@babel/core": "^7.0.0-rc.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "@babel/preset-react": "7.0.0-rc.1",
-    "mongoose": "^5.2.8",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "body-parser": "^1.18.3",
     "btoa": "^1.2.1",
     "atob": "^2.1.1",
-    "body-parser": "^1.18.3"
+    "mongoose": "^5.2.8"
   },
   "engines": {
     "node": "8.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/react-starter-r16-w4"
+    "url": "https://glitch.com/edit/#!/starter-react"
   },
   "license": "MIT",
   "keywords": [

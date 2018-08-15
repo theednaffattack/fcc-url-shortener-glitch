@@ -72,9 +72,6 @@ const InnerForm = ({
 
         
     {touched.url && errors.url && <div>{errors.url}</div>}
-      <h1>
-Returned Data
-      </h1>
 
       <h4>
         {status ? (
