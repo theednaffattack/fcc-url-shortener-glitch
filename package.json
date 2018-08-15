@@ -8,26 +8,27 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack --mode production && node server.js"
+    "start": "webpack --mode production && node -r dotenv/config server.js"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "jsx-loader": "^0.13.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
+    "atob": "^2.1.1",
     "axios": "^0.18.0",
-    "formik": "^1.0.2",
-    "yup": "^0.26.2",
-    "styled-components": "^3.4.2",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "body-parser": "^1.18.3",
     "btoa": "^1.2.1",
-    "atob": "^2.1.1",
-    "mongoose": "^5.2.8"
+    "dotenv": "6.0.0",
+    "express": "^4.16.3",
+    "formik": "^1.0.2",
+    "jsx-loader": "^0.13.2",
+    "mongoose": "^5.2.8",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "styled-components": "^3.4.2",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "yup": "^0.26.2"
   },
   "engines": {
     "node": "8.x"

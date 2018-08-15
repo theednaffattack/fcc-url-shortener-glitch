@@ -1,1 +1,4 @@
-bundle
+public/bundle.js
+
+.env
+node_modules

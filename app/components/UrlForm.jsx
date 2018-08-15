@@ -63,7 +63,7 @@ const InnerForm = ({
   <input
     name="url"
     type="text"
-    className={`form-control ${ errors.uri && touched.uri && 'is-invalid'}`}
+    className={`form-control ${ errors.url && touched.url && 'is-invalid'}`}
     value={values.url}
     onChange={handleChange}
     onBlur={handleBlur}
