@@ -16,15 +16,19 @@ const postData = (url = '', data = {}) => axios.post('shorten', data)
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  isSubmitting,
-  status
-}, props) => (
+    values,
+    touched,
+    errors,
+    dirty,
+    isSubmitting,
+    handleChange,
+    setFieldValue,
+    handleBlur,
+    handleSubmit,
+    handleReset,
+    hash,
+    status
+}) => (
   <form onSubmit={handleSubmit}>
   
   
@@ -37,14 +41,21 @@ const InnerForm = ({
     onBlur={handleBlur}
   />
 {JSON.stringify(values)}
+{JSON.stringify(status)}
 
+        
+      <h1>
+Returned Data
+      </h1>
+      <h4>
         {status ? (
-          <a href={`${status.hash}`}>
-            {`${status.hash}`}
+          <a href={`http://localhost:8001/${status.hash}`}>
+            {`http://localhost:8001/${status.hash}`}
           </a>
         ) : (
           ''
         )}
+      </h4>
           
     <button type="submit" disabled={isSubmitting}>
       Submit
@@ -86,13 +97,9 @@ const MyForm = withFormik({
         setSubmitting(false);
         // do whatevs...
         // props.updateUser(user)
-      },
-      errors => {
-        setSubmitting(false);
-        // Maybe even transform your API's errors into the same shape as Formik's!
-        setErrors(errors);
       }
-    );
+    )
+    .catch(error => setErrors(error));;
   },
 })(InnerForm);
 
