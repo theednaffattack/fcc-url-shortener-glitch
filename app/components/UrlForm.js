@@ -47,6 +47,8 @@ const InnerForm = ({
       <h1>
 Returned Data
       </h1>
+
+{JSON.stringify(errors)}
       <h4>
         {status ? (
           <a href={`http://localhost:8001/${status.hash}`}>
@@ -83,16 +85,14 @@ const MyForm = withFormik({
   handleSubmit: (
     values,
     {
+      
       props,
-      setErrors,
-      resetForm,
-      setStatus,
       setSubmitting,
+      setErrors, setStatus, resetForm /* setValues, setStatus, and other goodies */
     }
   ) => {
-    postData('/shorten', values).then(
-      data => {
-
+    postData('/shorten', values)
+.then( (data) => {
         setStatus(data);
         setSubmitting(false);
         // do whatevs...
