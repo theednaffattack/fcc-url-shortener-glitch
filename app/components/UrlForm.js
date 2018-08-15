@@ -6,13 +6,8 @@ const { withFormik } = require('formik');
 
 
 const postData = (url = '', data = {}) => axios.post('shorten', data)
-  .then(function (response) {
-    console.log(response);
-    response => response.json()
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+  .then(responseText => responseText)
+  .catch(error => error);
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
@@ -40,10 +35,10 @@ const InnerForm = ({
     onChange={handleChange}
     onBlur={handleBlur}
   />
-{JSON.stringify(values)}
-{JSON.stringify(status)}
+
 
         
+    {touched.url && errors.url && <div>{errors.}</div>}
       <h1>
 Returned Data
       </h1>
@@ -51,8 +46,8 @@ Returned Data
 {JSON.stringify(errors)}
       <h4>
         {status ? (
-          <a href={`http://localhost:8001/${status.hash}`}>
-            {`http://localhost:8001/${status.hash}`}
+          <a href={`http://localhost:8001/${status.data.hash}`}>
+            {`http://localhost:8001/${status.data.hash}`}
           </a>
         ) : (
           ''
@@ -94,6 +89,7 @@ const MyForm = withFormik({
     postData('/shorten', values)
 .then( (data) => {
         setStatus(data);
+resetForm;
         setSubmitting(false);
         // do whatevs...
         // props.updateUser(user)
