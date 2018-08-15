@@ -18,9 +18,9 @@ module.exports = {
         include: path.join(__dirname, 'app'),
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+                    options: {
+                        presets: ['@babel/react', '@babel/env']
+                    }
         }
       },
       {

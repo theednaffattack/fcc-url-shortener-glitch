@@ -1,6 +1,6 @@
 const axios = require('axios');
 const React = require('react');
-const styled = require('styled-components');
+// const styled = require('styled-components');
 const { withFormik } = require('formik');
 
 
@@ -134,8 +134,7 @@ resetForm;
 // Use <MyForm /> anywhere
 const Basic = () => (
   <div>
-    <h1>My Form</h1>
-    <p>This can be anywhere in your application</p>
+    <h1>URL Shortener</h1>
     <MyForm />
   </div>
 );
